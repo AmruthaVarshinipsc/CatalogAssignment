@@ -6,25 +6,25 @@ import org.json.simple.parser.*;
 
 public class CatalogPolynomialSolver {
 
-    // Gaussian elimination to solve Ax = B
+    
     public static double[] solve(double[][] A, double[] B) {
         int n = A.length;
         for (int i = 0; i < n; i++) {
-            // Pivot
+            
             int max = i;
             for (int j = i + 1; j < n; j++)
                 if (Math.abs(A[j][i]) > Math.abs(A[max][i])) max = j;
 
-            // Swap rows
+            
             double[] temp = A[i]; A[i] = A[max]; A[max] = temp;
             double t = B[i]; B[i] = B[max]; B[max] = t;
 
-            // Normalize pivot row
+            
             double pivot = A[i][i];
             for (int j = i; j < n; j++) A[i][j] /= pivot;
             B[i] /= pivot;
 
-            // Eliminate
+            
             for (int j = 0; j < n; j++) {
                 if (j != i) {
                     double factor = A[j][i];
@@ -38,7 +38,7 @@ public class CatalogPolynomialSolver {
 
     public static void main(String[] args) {
         try {
-            // Read JSON from file
+            
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(new FileReader("input.json"));
 
@@ -63,7 +63,7 @@ public class CatalogPolynomialSolver {
                 ys.add(bigY.doubleValue()); // convert to double for solving
             }
 
-            // Use only first k points
+            
             double[][] A = new double[k][k];
             double[] B = new double[k];
             for (int i = 0; i < k; i++) {
